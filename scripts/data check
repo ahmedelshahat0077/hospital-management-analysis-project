@@ -1,0 +1,121 @@
+/*====================================================
+  Data Quality Check - Doctors
+====================================================*/
+
+-- Duplicate Check
+SELECT doctor_id, COUNT(*) AS Cnt
+FROM doctors
+GROUP BY doctor_id
+HAVING COUNT(*) > 1
+-- NULL Check
+SELECT *
+FROM doctors
+WHERE doctor_id IS NULL
+   OR first_name IS NULL
+   OR last_name IS NULL;
+-- Outlier Check
+select
+years_experience
+from doctors
+where years_experience < 0 or years_experience > 50
+
+select * from doctors
+-----------------------------
+/*====================================================
+  Data Quality Check - patients
+====================================================*/
+
+-- change from M and F to male and female
+UPDATE patients
+SET gender =
+CASE
+WHEN gender='M' THEN 'Male'
+WHEN gender='F' THEN 'Female'
+END;
+select * from patients
+
+-- Duplicate Check
+SELECT patient_id, COUNT(*) AS Cnt
+FROM patients
+GROUP BY patient_id
+HAVING COUNT(*) > 1
+
+-- NULL Check
+SELECT *
+FROM patients
+WHERE patient_id IS NULL
+
+select * from patients
+---------------------------------------------------------------
+/*====================================================
+  Data Quality Check - appointments
+====================================================*/
+
+-- Duplicate Check
+SELECT appointment_id, COUNT(*) AS Cnt
+FROM appointments
+GROUP BY appointment_id
+HAVING COUNT(*) > 1
+
+-- NULL Check
+SELECT *
+FROM appointments
+WHERE appointment_id IS NULL
+
+-- check appointment date is normal or not
+select
+*
+from appointments
+where appointment_date > getdate()
+
+-- check appointment date is after regestration date or not
+select
+a.appointment_id,
+p.patient_id,
+p.registration_date, 
+a.appointment_date
+from appointments a
+left join patients p
+on a.patient_id=p.patient_id
+where p.registration_date > a.appointment_date
+
+UPDATE p
+SET p.registration_date = a.appointment_date
+FROM patients p
+left JOIN appointments a ON p.patient_id = a.patient_id
+WHERE a.appointment_date < p.registration_date;
+
+select * from appointments
+--------------------------------------------------
+/*====================================================
+  Data Quality Check - treatments
+====================================================*/
+-- Duplicate Check
+SELECT treatment_id, COUNT(*) AS Cnt
+FROM treatments
+GROUP BY treatment_id
+HAVING COUNT(*) > 1
+
+-- NULL Check
+SELECT *
+FROM treatments
+WHERE treatment_id IS NULL
+
+select * from treatments
+----------------------------------------
+/*====================================================
+  Data Quality Check - billing
+====================================================*/
+-- Duplicate Check
+SELECT bill_id, COUNT(*) AS Cnt
+FROM billing
+GROUP BY bill_id
+HAVING COUNT(*) > 1
+
+-- NULL Check
+SELECT *
+FROM billing
+WHERE bill_id IS NULL
+
+select * from billing
+-----------------------------------------------
