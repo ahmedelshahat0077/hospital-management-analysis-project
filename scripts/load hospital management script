@@ -1,0 +1,95 @@
+/*
+===============================================================================
+load Script: loading hospital management dataset Tables
+===============================================================================
+Script Purpose:
+    This script loads data into tables from external CSV files. 
+    It performs the following actions:
+    - Truncates the tables before loading data.
+    - Uses the `BULK INSERT` command to load data from csv Files to tables.
+	===============================================================================
+*/
+--------------------------------------------------------------
+-- inserting data into table doctors
+--------------------------------------------------------------
+PRINT '>> trucating table: doctors';
+truncate table doctors
+PRINT '>> Inserting Data Into: doctors';
+BULK INSERT doctors
+		FROM 'D:\SQL\my work\health management sql project\docs\doctors.csv'
+		with
+		(
+		firstrow = 2,
+		fieldterminator = ',',
+		ROWTERMINATOR = '0x0a',
+		tablock
+		);
+		go
+-------------------------------------------------------------------------
+--------------------------------------------------------------
+-- inserting data into table patients
+--------------------------------------------------------------
+PRINT '>> truncating table: patients';
+truncate table patients
+PRINT '>> Inserting Data Into: patients';
+BULK INSERT patients
+		FROM 'D:\SQL\my work\health management sql project\docs\patients.csv'
+		with
+		(
+		firstrow = 2,
+		fieldterminator = ',',
+		ROWTERMINATOR = '0x0a',
+		tablock
+		);
+		go
+-----------------------------------------------------------------------------
+--------------------------------------------------------------
+-- inserting data into table appointments
+--------------------------------------------------------------
+PRINT '>> truncating table: appointments';
+truncate table appointments
+PRINT '>> Inserting Data Into: appointments';
+BULK INSERT appointments
+		FROM 'D:\SQL\my work\health management sql project\docs\appointments.csv'
+		with
+		(
+		firstrow = 2,
+		fieldterminator = ',',
+		ROWTERMINATOR = '0x0a',
+		tablock
+		);
+		go
+---------------------------------------------------------------------------------
+--------------------------------------------------------------
+-- inserting data into table treatments
+--------------------------------------------------------------
+PRINT '>> truncating table: treatments';
+truncate table treatments
+PRINT '>> Inserting Data Into: treatments';
+BULK INSERT treatments
+		FROM 'D:\SQL\my work\health management sql project\docs\treatments.csv'
+		with
+		(
+		firstrow = 2,
+		fieldterminator = ',',
+		ROWTERMINATOR = '0x0a',
+		tablock
+		);
+		go
+----------------------------------------------------------------------------------
+--------------------------------------------------------------
+-- inserting data into table billing
+--------------------------------------------------------------
+PRINT '>> truncating table: billing';
+truncate table billing
+PRINT '>> Inserting Data Into: billing';
+BULK INSERT billing
+		FROM 'D:\SQL\my work\health management sql project\docs\billing.csv'
+		with
+		(
+		firstrow = 2,
+		fieldterminator = ',',
+		ROWTERMINATOR = '0x0a',
+		tablock
+		);
+		go
