@@ -92,7 +92,7 @@ The project contains five main tables:
 - CASE WHEN
 - Aggregate Functions
 - CTE Queries
-- views
+- Views
 - Data Cleaning
 - Business Analysis Queries
 
@@ -127,4 +127,5 @@ Hospital-SQL-Analysis/
 I'm Ahmed Elshahat Ragab, a pharmacist and Data Analyst. I'm passionate about using data to solve real-world healthcare problems by combining my medical background with SQL, Excel, and Power BI.
 
 phone: +971502726928
+
 email: ahmedelshahat64@gmail.com
