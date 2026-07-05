@@ -1,0 +1,86 @@
+/*
+===============================================================================
+DDL Script: creating hospital management dataset Tables
+===============================================================================
+Script Purpose:
+    This script creates tables in the hospital management dataset, dropping existing tables 
+    if they already exist.
+	  Run this script to re-define the DDL structure of Tables
+===============================================================================
+*/
+-------------------------------------------------------------
+IF OBJECT_ID('doctors', 'U') IS NOT NULL
+    DROP TABLE doctors;
+GO
+
+create table doctors (
+doctor_id nvarchar(500),
+first_name nvarchar(500),
+last_name nvarchar(500),
+specialization nvarchar(500),
+phone_number nvarchar (500),
+years_experience int,
+hospital_branch nvarchar(500),
+email nvarchar(500)
+);
+go
+
+
+IF OBJECT_ID('patients', 'U') IS NOT NULL
+    DROP TABLE patients;
+GO
+create table patients (
+patient_id nvarchar(500),
+first_name nvarchar(500),
+last_name nvarchar(500),
+gender nvarchar(500),
+date_of_birth date,
+contact_number nvarchar(500),
+address nvarchar(500),
+registration_date date,
+insurance_provider nvarchar(500),
+insurance_number nvarchar(500),
+email nvarchar(500)
+);
+go
+
+IF OBJECT_ID('appointments', 'U') IS NOT NULL
+    DROP TABLE appointments;
+GO
+create table appointments (
+appointment_id nvarchar(500),
+patient_id nvarchar(500),
+doctor_id nvarchar(500),
+appointment_date date,
+appointment_time time (0),
+reason_for_visit nvarchar(500),
+status nvarchar(500)
+);
+go
+
+IF OBJECT_ID('treatments', 'U') IS NOT NULL
+    DROP TABLE treatments;
+GO
+create table treatments (
+treatment_id nvarchar(500),
+appointment_id nvarchar(500),
+treatment_type nvarchar(500),
+description nvarchar(500),
+cost decimal(10,2),
+treatment_date date,
+);
+go
+
+IF OBJECT_ID('billing', 'U') IS NOT NULL
+    DROP TABLE billing;
+GO
+create table billing (
+bill_id nvarchar(500),
+patient_id nvarchar(500),
+treatment_id nvarchar(500),
+bill_date date,
+amount decimal(10,2),
+payment_method nvarchar(500),
+payment_status nvarchar(500)
+);
+go
