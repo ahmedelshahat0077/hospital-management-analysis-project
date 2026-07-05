@@ -91,8 +91,8 @@ The project contains five main tables:
 - ORDER BY
 - CASE WHEN
 - Aggregate Functions
-- CAST
-- FORMAT
+- CTE Queries
+- views
 - Data Cleaning
 - Business Analysis Queries
 
@@ -116,8 +116,6 @@ Hospital-SQL-Analysis/
 
 ## 🚀 Future Improvements
 
-- Add SQL Views
-- Implement Window Functions
 - Create Stored Procedures
 - Build an interactive Power BI Dashboard
 - Optimize queries using Indexes
@@ -126,6 +124,7 @@ Hospital-SQL-Analysis/
 
 ## 👨‍💻 About Me
 
-I'm Ahmed Elshahat, a pharmacist transitioning into Data Analytics. I'm passionate about using data to solve real-world healthcare problems by combining my medical background with SQL, Excel, and Power BI.
+I'm Ahmed Elshahat Ragab, a pharmacist and Data Analyst. I'm passionate about using data to solve real-world healthcare problems by combining my medical background with SQL, Excel, and Power BI.
 
-Connect with me on LinkedIn!
+phone: +971502726928
+email: ahmedelshahat64@gmail.com
