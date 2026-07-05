@@ -1,0 +1,242 @@
+/*====================================================
+  explaratory data analysis - Doctors
+====================================================*/
+
+--------- how many doctors in hospital ?
+select 
+count(*) number_of_doctors
+from doctors
+
+--------- how many doctors in every specialization ?
+select 
+specialization,
+count(doctor_id) total_of_doctors
+from doctors
+group by specialization
+order by total_of_doctors desc
+
+------- average of years of experience in every specialization
+select
+specialization,
+avg(years_experience) avg_of_experience
+from doctors
+group by specialization
+-----------------------------
+/*====================================================
+  explaratory data analysis - patients
+====================================================*/
+
+--------- how many patients in hospital ?
+select 
+count(*) number_of_patients
+from patients
+
+-------- how many male and female in patients?
+select 
+gender,
+count(patient_id) total_of_patients
+from patients
+group by gender
+
+-------- distribution of patients according to insurance provider?
+select 
+insurance_provider,
+count(patient_id) total_of_patients
+from patients
+group by insurance_provider
+
+---------- who is the youngest patient ?
+select top 1
+first_name,
+last_name,
+date_of_birth
+from patients
+order by date_of_birth desc
+
+---------- who is the oldest patient ?
+select top 1
+first_name,
+last_name,
+date_of_birth
+from patients
+order by date_of_birth asc
+-----------------------------
+/*====================================================
+  explaratory data analysis - appointments
+====================================================*/
+--------- how many appointments in hospital ?
+select 
+count(*) number_of_appointments
+from appointments
+
+---------  distribution of appointment status
+select 
+status,
+count(appointment_id) total_of_appointments
+from appointments
+group by status
+
+---------- how many appointments every month?
+select 
+format(appointment_date,'yyyy-MM') appointment_month,
+count(appointment_id) total_of_appointments
+from appointments
+group by format(appointment_date,'yyyy-MM')
+-----------------------------
+/*====================================================
+  explaratory data analysis - treatments
+====================================================*/
+--------- how many treatment types in hospital ?
+select 
+count(distinct(treatment_type)) as total_number_of_treatment_types
+from treatments
+
+--------- the most treatment type used in hospital
+select 
+treatment_type,
+count(*) total_number_of_treatment_types
+from treatments
+group by treatment_type 
+order by total_number_of_treatment_types desc
+
+------- the average cost of treatments
+select
+avg(cost) avg_cost
+from treatments
+
+--------- the most profitable treatment type in hospital
+select 
+treatment_type,
+sum(cost) total_cost_of_treatment_types
+from treatments
+group by treatment_type 
+order by total_cost_of_treatment_types desc
+-----------------------------
+/*====================================================
+  explaratory data analysis - billing
+====================================================*/
+
+----- sum of revenue
+select
+sum(amount) sum_of_revenue
+from billing
+
+----- average of revenue by bills
+SELECT CAST(AVG(amount) AS DECIMAL(10,1)) AS overall_avg_revenue
+FROM billing;
+ 
+------ select the top 5 bills in cost
+select top 5
+bill_id,
+amount
+from billing
+order by amount desc
+-------------------------------------------------------------------------------------------
+/*====================================================
+  explaratory data analysis - advanced stage with joins
+====================================================*/
+
+----- full report about patient journey
+SELECT
+pt.patient_id,
+pt.first_name,
+pt.last_name,
+d.doctor_id,
+d.specialization,
+d.hospital_branch,
+po.appointment_date,
+po.reason_for_visit
+from patients pt
+left join appointments po
+on pt.patient_id = po.patient_id
+left join doctors d
+on po.doctor_id = d.doctor_id
+--------------------------------------------
+--- complete financial report
+select
+d.doctor_id,
+d.first_name,
+d.last_name,
+po.patient_id,
+po.appointment_id,
+bi.bill_id,
+bi.bill_date,
+bi.treatment_id,
+sum(bi.amount) total_revenue
+from doctors d
+left join appointments po
+on d.doctor_id = po.doctor_id
+left join billing bi
+on bi.patient_id = po.patient_id
+group by 
+d.doctor_id,
+d.first_name,
+d.last_name,
+po.patient_id,
+po.appointment_id,
+bi.bill_id,
+bi.bill_date,
+bi.treatment_id
+-------------------------------------------------------
+---- total revenue by doctor
+select
+d.doctor_id,
+d.first_name,
+d.last_name,
+sum(bi.amount) total_revenue
+from doctors d
+left join appointments po
+on d.doctor_id = po.doctor_id
+left join billing bi
+on bi.patient_id = po.patient_id
+group by 
+d.doctor_id,
+d.first_name,
+d.last_name
+order by total_revenue desc
+--------------------------------------------------
+---- top 5 doctors in total appointments
+select top 5
+d.doctor_id,
+d.first_name,
+d.last_name,
+count(po.appointment_id) total_appointments
+from doctors d
+left join appointments po
+on d.doctor_id = po.doctor_id
+group by 
+d.doctor_id,
+d.first_name,
+d.last_name
+order by total_appointments desc
+----------------------------------------------------
+--- number of completed appointments against cancelled appointments for each doctor
+select 
+d.doctor_id,
+d.first_name,
+d.last_name,
+po.status,
+count(po.status) total_appointments
+from doctors d
+left join appointments po
+on d.doctor_id = po.doctor_id
+where status in('completed','cancelled')
+group by 
+d.doctor_id,
+d.first_name,
+d.last_name,
+po.status
+------------------------------------------------------
+------- list of patient who have not pay the bill
+select
+pi.patient_id,
+pi.first_name,
+pi.last_name,
+bi.bill_id,
+bi.amount,
+bi.payment_status
+from patients pi
+left join billing bi
+on pi.patient_id = bi.patient_id
+where payment_status in('Failed','Pending')
+---------------------------------------------------------------------------------------------------------------------------------------------
