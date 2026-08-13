@@ -4,6 +4,8 @@
 
 This project demonstrates a complete SQL-based data analysis workflow using a hospital management dataset. The goal is to transform raw healthcare data into meaningful business insights that support operational and financial decision-making.
 
+<img width="888" height="503" alt="image" src="https://github.com/user-attachments/assets/4c0f766c-eb05-41f3-aef1-58ef3f16920e" />
+
 The project simulates the responsibilities of a Data Analyst by performing:
 
 - Data Quality Checks
