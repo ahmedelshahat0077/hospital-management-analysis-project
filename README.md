@@ -1,4 +1,4 @@
-# 🏥 Hospital Management SQL Analysis Project
+# 🏥 Hospital Management Analysis Project
 
 ## 📌 Project Overview
 
