@@ -114,14 +114,6 @@ Hospital-SQL-Analysis/
 
 ---
 
-## 🚀 Future Improvements
-
-- Create Stored Procedures
-- Build an interactive Power BI Dashboard
-- Optimize queries using Indexes
-
----
-
 ## 👨‍💻 About Me
 
 I'm Ahmed Elshahat Ragab, a pharmacist and Data Analyst. I'm passionate about using data to solve real-world healthcare problems by combining my medical background with SQL, Excel, and Power BI.
